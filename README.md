@@ -1,14 +1,15 @@
-Serverless TODO API – Terraform on AWS
-(API Gateway / Lambda / DynamoDB / CloudWatch Logs)
+Serverless ToDo API（API Gateway / Lambda / DynamoDB / Terraform）
 
-本プロジェクトは、Terraform で構築した完全サーバーレス TODO API です。
-API Gateway → Lambda → DynamoDB の王道構成で、
-運用コストがほぼゼロ・完全マネージド・高可用・高スケーラブル なバックエンドを実現します。
+このプロジェクトは、AWS のサーバレス構成を Terraform を使ってゼロから構築した学習用アプリケーションです。
+API Gateway、Lambda（Python）、DynamoDB を組み合わせ、シンプルな ToDo API をサーバレスで動かしています。
 
-Terraform により 全リソースをコード化 (IaC) しており、
-再現性・メンテナンス性・拡張性に優れた構成となっています。
+クラウドネイティブなアーキテクチャを理解することを目的に、インフラはすべて IaC（Infrastructure as Code）として管理し、
+デプロイから API の実行まで、手を動かしながら体系的に学べる構成にしています。
 
-アーキテクチャ概要（Architecture）
+「最小構成で動く API を、Terraform でフル構築してみたい」という思いから始めた、
+実務にもつながりやすい軽量サーバレスプロジェクトです。
+
+#アーキテクチャ概要（Architecture）
 
 使用サービス：
 
@@ -19,7 +20,7 @@ IAM Role / Policy：最小権限で構成
 CloudWatch Logs：Lambda のログ管理
 Terraform：すべてのリソースを IaC 化
 
-プロジェクトの目的
+#プロジェクトの目的
 
 サーバレス開発の実践理解
 Terraform によるインフラ自動構築
@@ -27,7 +28,7 @@ API + Lambda + DynamoDB のベストプラクティス習得
 個人ポートフォリオとして「軽量でデモしやすい構成」を実現
 運用コストを抑えつつ、スケーラブルなアーキテクチャを構築
 
-ディレクトリ構成
+#ディレクトリ構成
 project/
 ├── main.tf               # AWS リソース定義（API / Lambda / DynamoDB / IAM）
 ├── variables.tf          # 変数定義
@@ -39,14 +40,14 @@ project/
 ├── lambda.zip            # Lambda デプロイパッケージ（Terraform が参照）
 └── README.md
 
-構築される AWS リソース
-🔹 API Gateway（REST API）
+#構築される AWS リソース
+## 🔹 API Gateway（REST API）
 
 ANY メソッドで Lambda にプロキシ
 /todo エンドポイントを提供
 ステージ名：dev
 
-🔹 Lambda Function
+## 🔹 Lambda Function
 
 名前：serverless-todo-lambda
 ランタイム：Python 3.12
@@ -60,13 +61,13 @@ GET（全件取得）
 POST（追加）
 DELETE（削除）
 
-🔹 DynamoDB
+## 🔹 DynamoDB
 
 テーブル名：TodoTable
 パーティションキー：id（String）
 課金：PAY_PER_REQUEST（自動スケール・最安）
 
-デプロイ手順
+#デプロイ手順
 1. 初期化
 terraform init
 
@@ -81,7 +82,7 @@ terraform apply
 Outputs:
 api_invoke_url = "https://xxxxxxx.execute-api.ap-northeast-1.amazonaws.com/dev"
 
-動作確認（PowerShell）
+# 動作確認（PowerShell）
 🔹 Todo の追加（POST）
 $body = @{
     id = (New-Guid).Guid
@@ -128,12 +129,3 @@ Terraform による完全 IaC 化
 Lambda のデプロイパッケージ作成
 IAM ロール・最小権限設計
 REST API 設計の基本
-
-今後の拡張案
-
-フロントエンド（React / Next.js）追加
-CI/CD（GitHub Actions → Terraform Cloud）
-Serverless Framework 版の比較作成
-認証追加（Cognito）
-API バージョニング
-DynamoDB GSI / LSI を使った高機能化
