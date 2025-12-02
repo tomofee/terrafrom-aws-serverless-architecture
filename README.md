@@ -46,6 +46,7 @@ API + Lambda + DynamoDB のベストプラクティス習得
 
 ## ディレクトリ構成
 project/
+
 ├── main.tf               # AWS リソース定義（API / Lambda / DynamoDB / IAM）
 
 ├── variables.tf          # 変数定義
