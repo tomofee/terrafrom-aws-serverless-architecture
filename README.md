@@ -1,12 +1,17 @@
 # Serverless ToDo API（API Gateway / Lambda / DynamoDB / Terraform）
 
 このプロジェクトは、AWS のサーバレス構成を Terraform を使ってゼロから構築した学習用アプリケーションです。
+
 API Gateway、Lambda（Python）、DynamoDB を組み合わせ、シンプルな ToDo API をサーバレスで動かしています。
 
+
 クラウドネイティブなアーキテクチャを理解することを目的に、インフラはすべて IaC（Infrastructure as Code）として管理し、
+
 デプロイから API の実行まで、手を動かしながら体系的に学べる構成にしています。
 
+
 「最小構成で動く API を、Terraform でフル構築してみたい」という思いから始めた、
+
 実務にもつながりやすい軽量サーバレスプロジェクトです。
 
 ## アーキテクチャ概要（Architecture）
@@ -39,7 +44,7 @@ API + Lambda + DynamoDB のベストプラクティス習得
 運用コストを抑えつつ、スケーラブルなアーキテクチャを構築
 
 
-#ディレクトリ構成
+## ディレクトリ構成
 project/
 ├── main.tf               # AWS リソース定義（API / Lambda / DynamoDB / IAM）
 
@@ -80,7 +85,7 @@ AWSLambdaBasicExecutionRole
 
 AmazonDynamoDBFullAccess
 
-#### 実装内容（app.py）：
+### 🔹 実装内容（app.py）：
 
 GET（全件取得）
 
