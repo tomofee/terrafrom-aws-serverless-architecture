@@ -1,4 +1,4 @@
-Serverless ToDo API（API Gateway / Lambda / DynamoDB / Terraform）
+# Serverless ToDo API（API Gateway / Lambda / DynamoDB / Terraform）
 
 このプロジェクトは、AWS のサーバレス構成を Terraform を使ってゼロから構築した学習用アプリケーションです。
 API Gateway、Lambda（Python）、DynamoDB を組み合わせ、シンプルな ToDo API をサーバレスで動かしています。
@@ -9,7 +9,7 @@ API Gateway、Lambda（Python）、DynamoDB を組み合わせ、シンプルな
 「最小構成で動く API を、Terraform でフル構築してみたい」という思いから始めた、
 実務にもつながりやすい軽量サーバレスプロジェクトです。
 
-#アーキテクチャ概要（Architecture）
+## アーキテクチャ概要（Architecture）
 
 使用サービス：
 
@@ -20,7 +20,7 @@ IAM Role / Policy：最小権限で構成
 CloudWatch Logs：Lambda のログ管理
 Terraform：すべてのリソースを IaC 化
 
-#プロジェクトの目的
+## プロジェクトの目的
 
 サーバレス開発の実践理解
 Terraform によるインフラ自動構築
@@ -40,14 +40,14 @@ project/
 ├── lambda.zip            # Lambda デプロイパッケージ（Terraform が参照）
 └── README.md
 
-#構築される AWS リソース
-## 🔹 API Gateway（REST API）
+## 構築される AWS リソース
+### 🔹 API Gateway（REST API）
 
 ANY メソッドで Lambda にプロキシ
 /todo エンドポイントを提供
 ステージ名：dev
 
-## 🔹 Lambda Function
+### 🔹 Lambda Function
 
 名前：serverless-todo-lambda
 ランタイム：Python 3.12
@@ -61,13 +61,13 @@ GET（全件取得）
 POST（追加）
 DELETE（削除）
 
-## 🔹 DynamoDB
+### 🔹 DynamoDB
 
 テーブル名：TodoTable
 パーティションキー：id（String）
 課金：PAY_PER_REQUEST（自動スケール・最安）
 
-#デプロイ手順
+## デプロイ手順
 1. 初期化
 terraform init
 
@@ -82,8 +82,8 @@ terraform apply
 Outputs:
 api_invoke_url = "https://xxxxxxx.execute-api.ap-northeast-1.amazonaws.com/dev"
 
-# 動作確認（PowerShell）
-🔹 Todo の追加（POST）
+## 動作確認（PowerShell）
+### 🔹 Todo の追加（POST）
 $body = @{
     id = (New-Guid).Guid
     task = "Buy milk"
@@ -95,12 +95,12 @@ Invoke-RestMethod `
     -Body $body `
     -ContentType "application/json"
 
-🔹 Todo の取得（GET）
+### 🔹 Todo の取得（GET）
 Invoke-RestMethod `
     -Method GET `
     -Uri "https://xxxxx.execute-api.ap-northeast-1.amazonaws.com/dev/todo"
 
-🔹 Todo の削除（DELETE）
+### 🔹 Todo の削除（DELETE）
 $id = "削除したい ID"
 
 $body = @{ id = $id } | ConvertTo-Json
@@ -111,7 +111,7 @@ Invoke-RestMethod `
     -Body $body `
     -ContentType "application/json"
 
-使用技術
+## 使用技術
 
 Terraform
 API Gateway
@@ -121,7 +121,7 @@ IAM
 CloudWatch Logs
 Python 3.12
 
-学習ポイント（成長ログ）
+## 学習ポイント（成長ログ）
 
 Lambda + API Gateway の実装経験
 DynamoDB の設計（NoSQL 基本設計）
